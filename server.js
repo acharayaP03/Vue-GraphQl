@@ -7,11 +7,6 @@ const db = process.env.MONGODB_URI;
 //connect to Mongo db
 connectDb(db);
 
-// const todos = [
-//   { task: "Do the laundry", completed: true },
-//   { task: "Call CenterLink", completed: false },
-// ];
-
 //define typeDefs,
 const typeDefs = gql`
   type Todos {
