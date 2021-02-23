@@ -1,6 +1,8 @@
 const { ApolloServer, gql } = require("apollo-server");
 require("dotenv").config({ path: ".env" });
 const connectDb = require("./db");
+const User = require("./models/User");
+const Post = require("./models/Post");
 
 const db = process.env.MONGODB_URI;
 
@@ -35,6 +37,10 @@ const typeDefs = gql`
 //assign ApolloServer to the variable
 const server = new ApolloServer({
   typeDefs,
+  context: {
+    User,
+    Post,
+  },
 });
 
 server.listen().then(({ url }) => {

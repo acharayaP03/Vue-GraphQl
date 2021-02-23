@@ -41,7 +41,7 @@ const PostSchema = new mongoose.Schema({
         default: Date.now,
       },
       messageUser: {
-        type: ongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: "User",
       },
