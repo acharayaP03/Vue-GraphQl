@@ -1,16 +1,13 @@
 const { ApolloServer, gql } = require("apollo-server");
 require("dotenv").config({ path: ".env" });
 const connectDb = require("./db");
+const User = require("./models/User");
+const Post = require("./models/Post");
 
 const db = process.env.MONGODB_URI;
 
 //connect to Mongo db
 connectDb(db);
-
-// const todos = [
-//   { task: "Do the laundry", completed: true },
-//   { task: "Call CenterLink", completed: false },
-// ];
 
 //define typeDefs,
 const typeDefs = gql`
@@ -40,6 +37,10 @@ const typeDefs = gql`
 //assign ApolloServer to the variable
 const server = new ApolloServer({
   typeDefs,
+  context: {
+    User,
+    Post,
+  },
 });
 
 server.listen().then(({ url }) => {
