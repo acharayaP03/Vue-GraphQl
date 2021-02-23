@@ -25,12 +25,13 @@ type Message {
   messageDate: String
   messageUser: User!
 }
-
+# Query is important, or else the apollo server will throw error.
 type Query {
-  getUser: User
+  getPost: [Post]
 }
 
 type Mutation {
+  # adding a post mutation
   addPost(
     title: String!
     imageUrl: String!
@@ -38,5 +39,6 @@ type Mutation {
     description: String!
     creatorId: ID!
   ): Post!
+  # this is a mutation for signup users
   signupUser(username: String!, email: String!, password: String!): User!
 }

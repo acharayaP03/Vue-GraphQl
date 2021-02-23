@@ -1,5 +1,3 @@
-const dotenv = require("dotenv");
-
 const mongoose = require("mongoose");
 
 const connectDb = async (db) => {
@@ -11,7 +9,7 @@ const connectDb = async (db) => {
       useFindAndModify: false,
     });
 
-    console.log("-------------Mongo Db is Connecte--------------");
+    console.log("-------------* Mongo Db is Connected *--------------");
   } catch (error) {
     console.log(error);
     process.exit(1);
