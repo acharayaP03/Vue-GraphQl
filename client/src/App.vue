@@ -1,6 +1,18 @@
 <template>
-  <div id="app">
+  <v-app>
     <h1>App</h1>
-    <router-view />
-  </div>
+    <router-view></router-view>
+  </v-app>
 </template>
+
+<script>
+export default {
+  name: "App",
+
+  components: {},
+
+  data: () => ({
+    //
+  }),
+};
+</script>
