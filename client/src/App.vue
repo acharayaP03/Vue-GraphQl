@@ -71,7 +71,9 @@
     </v-app-bar>
     <v-main class="mt-5">
       <v-container class="mt-5">
-        <router-view></router-view>
+        <transition name="fade">
+          <router-view></router-view>
+        </transition>
       </v-container>
     </v-main>
   </v-app>
@@ -92,7 +94,7 @@ export default {
         {
           icon: "chat",
           title: "Posts",
-          link: "/post",
+          link: "/posts",
         },
         { icon: "lock_open", title: "Sign In", link: "/signin" },
         { icon: "create", title: "Sign Up", link: "/signup" },
@@ -103,7 +105,7 @@ export default {
         {
           icon: "chat",
           title: "Posts",
-          link: "/post",
+          link: "/posts",
         },
         { icon: "lock_open", title: "Sign In", link: "/signin" },
         { icon: "create", title: "Sign Up", link: "/signup" },
@@ -117,3 +119,18 @@ export default {
   },
 };
 </script>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: all;
+  transition-duration: 0.25s;
+}
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+  transform: translateX(-25px);
+}
+</style>
