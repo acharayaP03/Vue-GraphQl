@@ -11,13 +11,14 @@ Vue.use(VueApollo);
 
 // set up apolloclient
 const defaultClient = new ApolloClient({
-  uri: "http://localhost:5000",
+  uri: "http://localhost:5000/",
+  connectToDevTools: true,
 });
 const apolloProvider = new VueApollo({ defaultClient });
 Vue.config.productionTip = false;
 
 new Vue({
-  provide: apolloProvider.provide(),
+  apolloProvider,
   router,
   store,
   vuetify,
