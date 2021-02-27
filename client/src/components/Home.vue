@@ -39,6 +39,10 @@ export default {
           this.post = data.getPost;
         }
       },
+      error(err) {
+        console.log("[ERROR]", err);
+        console.dir(err);
+      },
     },
   },
 };
