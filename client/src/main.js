@@ -10,7 +10,7 @@ import VueApollo from "vue-apollo";
 Vue.use(VueApollo);
 
 // set up apolloclient
-const defaultClient = new ApolloClient({
+export const defaultClient = new ApolloClient({
   uri: "http://localhost:5000/",
   connectToDevTools: true,
 });

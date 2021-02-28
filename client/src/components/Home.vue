@@ -1,7 +1,7 @@
 <template>
-  <v-container v-if="getPost" text-sm-center mt-2>
+  <v-container text-sm-center mt-2>
     <v-flex xs12>
-      <v-carousel v-bind="{ cycle: true }" interval="3000">
+      <!-- <v-carousel v-bind="{ cycle: true }" interval="3000">
         <v-carousel-item
           v-for="post in getPost"
           :key="post.title"
@@ -9,7 +9,7 @@
         >
           <h1 id="carousel__heading">{{ post.title }}</h1>
         </v-carousel-item>
-      </v-carousel>
+      </v-carousel> -->
     </v-flex>
   </v-container>
 </template>
@@ -24,28 +24,36 @@ export default {
       post: [],
     };
   },
-  apollo: {
-    getPost: {
-      query: gql`
-        query {
-          getPost {
-            title
-            imageUrl
-            description
-          }
-        }
-      `,
-      result({ data, loading }) {
-        if (!loading) {
-          this.post = data.getPost;
-        }
-      },
-      error(err) {
-        console.log("[ERROR]", err);
-        console.dir(err);
-      },
+  created() {
+    this.handleGetCarouselPosts();
+  },
+  methods: {
+    handleGetCarouselPosts() {
+      this.$store.dispatch("getPost");
     },
   },
+  // apollo: {
+  //   getPost: {
+  //     query: gql`
+  //       query {
+  //         getPost {
+  //           title
+  //           imageUrl
+  //           description
+  //         }
+  //       }
+  //     `,
+  //     result({ data, loading }) {
+  //       if (!loading) {
+  //         this.post = data.getPost;
+  //       }
+  //     },
+  //     error(err) {
+  //       console.log("[ERROR]", err);
+  //       console.dir(err);
+  //     },
+  //   },
+  // },
 };
 </script>
 <style scoped>
