@@ -69,8 +69,8 @@
         {{ item.title }}
       </v-btn>
     </v-app-bar>
-    <v-main class="mt-5">
-      <v-container class="mt-5">
+    <v-main class="mt-16">
+      <v-container>
         <transition name="fade">
           <router-view></router-view>
         </transition>
