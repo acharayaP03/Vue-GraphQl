@@ -36,6 +36,7 @@
 
 <script>
 import { gql } from "apollo-boost";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
@@ -48,12 +49,7 @@ export default {
     this.handleGetCarouselPosts();
   },
   computed: {
-    posts() {
-      return this.$store.getters.post;
-    },
-    loading() {
-      return this.$store.getters.loading;
-    },
+    ...mapGetters(["posts", "loading"]),
   },
   methods: {
     handleGetCarouselPosts() {

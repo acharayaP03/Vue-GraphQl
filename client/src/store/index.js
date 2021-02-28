@@ -47,7 +47,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    post: (state) => state.post,
+    posts: (state) => state.post,
     loading: (state) => state.loading,
   },
   modules: {},
