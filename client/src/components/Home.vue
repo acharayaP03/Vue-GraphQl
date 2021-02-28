@@ -1,15 +1,19 @@
 <template>
   <v-container text-sm-center mt-2>
     <v-flex xs12>
-      <!-- <v-carousel v-bind="{ cycle: true }" interval="3000">
+      <v-carousel
+        v-bind="{ cycle: true }"
+        interval="3000"
+        v-if="posts.length > 0"
+      >
         <v-carousel-item
-          v-for="post in getPost"
+          v-for="post in posts"
           :key="post.title"
           :src="post.imageUrl"
         >
           <h1 id="carousel__heading">{{ post.title }}</h1>
         </v-carousel-item>
-      </v-carousel> -->
+      </v-carousel>
     </v-flex>
   </v-container>
 </template>
@@ -26,6 +30,11 @@ export default {
   },
   created() {
     this.handleGetCarouselPosts();
+  },
+  computed: {
+    posts() {
+      return this.$store.getters.post;
+    },
   },
   methods: {
     handleGetCarouselPosts() {
