@@ -41,4 +41,5 @@ type Mutation {
   ): Post!
   # this is a mutation for signup users
   signupUser(username: String!, email: String!, password: String!): User!
+  signinUser(username: String!, password: String!): User!
 }
