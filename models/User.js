@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+const md5 = require("md5");
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -28,6 +30,32 @@ const UserSchema = new mongoose.Schema({
     required: true,
     ref: "Post",
   },
+});
+
+// before sending schema to the db, Create and add avartar to user.
+UserSchema.pre("save", function (next) {
+  //since the username is unique, we can use this.username to random string
+  this.avatar = `http://gravatar.com/avatar/${md5(this.username)}?d=identicon`;
+  next();
+});
+
+//Hash Password
+UserSchema.pre("save", function (next) {
+  //if signing up user
+  if (!this.isModified("password")) {
+    //hash the password
+    return next();
+  }
+  bcrypt.genSalt(10, (err, salt) => {
+    //if error, call next middleware with err
+    if (err) return next(err);
+    //else call hash method with password and salt with callback of err and hash
+    bcrypt.hash(this.password, salt, (err, hash) => {
+      if (err) return next(err);
+      this.password = hash;
+      next();
+    });
+  });
 });
 
 module.exports = mongoose.model("User", UserSchema);
