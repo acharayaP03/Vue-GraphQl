@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import { gql } from "apollo-boost";
 import { mapGetters } from "vuex";
 
 export default {
@@ -56,28 +55,6 @@ export default {
       this.$store.dispatch("getPost");
     },
   },
-  // apollo: {
-  //   getPost: {
-  //     query: gql`
-  //       query {
-  //         getPost {
-  //           title
-  //           imageUrl
-  //           description
-  //         }
-  //       }
-  //     `,
-  //     result({ data, loading }) {
-  //       if (!loading) {
-  //         this.post = data.getPost;
-  //       }
-  //     },
-  //     error(err) {
-  //       console.log("[ERROR]", err);
-  //       console.dir(err);
-  //     },
-  //   },
-  // },
 };
 </script>
 <style scoped>
