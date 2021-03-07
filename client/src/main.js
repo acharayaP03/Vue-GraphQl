@@ -13,6 +13,32 @@ Vue.use(VueApollo);
 export const defaultClient = new ApolloClient({
   uri: "http://localhost:5000/",
   connectToDevTools: true,
+  //include auth token with requests made to backend
+  fetchOptions: {
+    crendentials: "include",
+  },
+  request: (operation) => {
+    //check if token exists
+    if (!localStorage.token) {
+      localStorage.setItem({ token: "" });
+    }
+    // operation adds the token to an authorixation header, which is sent ot backend
+    operation.setContext({
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
+  },
+  onError: ({ graphQLErrors, networkError }) => {
+    if (networkError) {
+      console.log("[networkError]", networkError);
+    }
+    if (graphQLErrors) {
+      for (let err of graphQLErrors) {
+        console.dir(err);
+      }
+    }
+  },
 });
 const apolloProvider = new VueApollo({ defaultClient });
 Vue.config.productionTip = false;
