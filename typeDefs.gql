@@ -30,6 +30,10 @@ type Query {
   getPost: [Post]
 }
 
+type Token {
+  token: String!
+}
+
 type Mutation {
   # adding a post mutation
   addPost(
@@ -40,6 +44,6 @@ type Mutation {
     creatorId: ID!
   ): Post!
   # this is a mutation for signup users
-  signupUser(username: String!, email: String!, password: String!): User!
-  signinUser(username: String!, password: String!): User!
+  signupUser(username: String!, email: String!, password: String!): Token
+  signinUser(username: String!, password: String!): Token
 }

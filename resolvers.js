@@ -1,4 +1,10 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const createToken = (user, secret, expiresIn) => {
+  const { username, email } = user;
+  return jwt.sign({ username, email }, secret, { expiresIn });
+};
 
 module.exports = {
   Query: {
@@ -38,7 +44,7 @@ module.exports = {
           password,
         }).save();
 
-        return newUser;
+        return { token: createToken(newUser, process.env.SECRET, "1hr") };
       } catch (error) {
         console.log(error);
       }
@@ -54,7 +60,8 @@ module.exports = {
       if (!isValidPassword) {
         throw new Error("Invalid password");
       }
-      return user;
+      //instsead of returning a user, return a token
+      return { token: createToken(user, process.env.SECRET, "1hr") };
     },
   },
 };
