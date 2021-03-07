@@ -25,9 +25,9 @@ export const GET_POSTS = gql`
 /**
  * @Post Mutations
  */
-export const SIGNIN_USER = glq`
-  mutation($username: String!, $password: String!){
-    signinUser(username: $username, $password:$password){
+export const SIGNIN_USER = gql`
+  mutation($username: String!, $password: String!) {
+    signinUser(username: $username, password: $password) {
       token
     }
   }
