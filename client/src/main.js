@@ -25,7 +25,7 @@ export const defaultClient = new ApolloClient({
     // operation adds the token to an authorixation header, which is sent ot backend
     operation.setContext({
       headers: {
-        authorization: localStorage.getItem("token"),
+        authorizations: localStorage.getItem("token"),
       },
     });
   },

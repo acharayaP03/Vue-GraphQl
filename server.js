@@ -1,4 +1,4 @@
-const { ApolloServer } = require("apollo-server");
+const { ApolloServer, AuthenticationError } = require("apollo-server");
 require("dotenv").config({ path: ".env" });
 
 /**
@@ -19,9 +19,25 @@ connectDb(db);
  */
 const fs = require("fs");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 const filePath = path.join(__dirname, "typeDefs.gql");
 const typeDefs = fs.readFileSync(filePath, "utf-8");
 const resolvers = require("./resolvers");
+/**
+ * @varify jwt form client
+ */
+const getUser = async (token) => {
+  if (token) {
+    try {
+      let user = await jwt.verify(token, process.env.SECRET);
+      console.log(user);
+    } catch (error) {
+      throw new AuthenticationError(
+        "Your Session has expired, please sign in again."
+      );
+    }
+  }
+};
 
 /**
  * @create GraphQL Apollo server
@@ -29,9 +45,9 @@ const resolvers = require("./resolvers");
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {
-    User,
-    Post,
+  context: async ({ req }) => {
+    const token = req.headers["authorizations"];
+    return { User, Post, currentUser: await getUser(token) };
   },
 });
 
